@@ -1,23 +1,21 @@
 import { Wrapper } from "./App.styles";
+import { useQuery } from "react-query";
+import { LinearProgress } from "@mui/material";
+import { CartItemType } from "./types";
+import { getProducts } from "./api";
 
-export interface CartItemType {
-  id: number;
-  category: string;
-  description: string;
-  image: string;
-  price: number;
-  title: string;
-  amount: number;
-};
 
-const getProducts = async (): Promise<CartItemType[]> =>
-  await (await fetch('https://fakestoreapi.com/products')).json();
-
-const App = () => (
+const App = () => {
+  const { data, isLoading, error } = useQuery<CartItemType[]>('products', getProducts);
+  console.log(data);
+  if (isLoading) return <LinearProgress />;
+  if (error) return <div>Error</div>;
+  return (
     <div className="App">
       Hello World
     </div>
   );
+};
 
 export default App;
 
