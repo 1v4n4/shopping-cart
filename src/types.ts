@@ -7,3 +7,8 @@ export interface CartItemType {
   title: string;
   amount: number;
 };
+
+export interface itemProps {
+  item: CartItemType;
+  handleAddItem: (ClickedItem: CartItemType) => void;
+};
